@@ -1,0 +1,153 @@
+/* --- 1. GLOBAL & FONT IMPORTS --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700&family=Rubik:wght@300;400;500;600;700;800&display=swap');
+
+/* --- 2. BODY & VIDEO BACKGROUND --- */
+body {
+    margin: 0;
+    overflow: hidden; 
+    font-family: 'Poppins', sans-serif;
+    user-select: none;
+    background: rgba(0, 0, 0, 0.5); 
+}
+
+#fullscreen-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -2;
+    object-fit: cover;
+}
+
+/* --- 3. LIRIK GLOW --- */
+#lyrics-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    z-index: 100;
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff00e0, 0 0 40px #ff00e0, 0 0 70px #ff00e0;
+    }
+    50% {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff00e0, 0 0 40px #ff00e0, 0 0 70px #ff00e0, 0 0 100px #ff00e0;
+    }
+}
+
+/* --- 4. TUMPukan KARTU (.draggable-card) --- */
+#card-stack {
+    position: relative;
+    width: 100vw; 
+    height: 100vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none; 
+}
+
+.draggable-card {
+    position: absolute; 
+    width: 250px; 
+    height: 350px; 
+    box-sizing: border-box;
+    
+    /* STYLE KERTAS */
+    background-color: rgb(234, 229, 229);
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 1px 15px 20px 0px rgba(0,0,0,0.5);
+    text-align: center;
+    
+    /* PENUMPUKAN AWAL */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: calc(10 - var(--order));
+    
+    /* PENTING: Transisi untuk Gerakan Mulus (5 detik) */
+    transition: transform 5s ease-out, box-shadow 0.1s ease-out; 
+    
+    pointer-events: auto;
+}
+
+/* Gambar dan Teks di Dalam Kartu */
+.card-title {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.draggable-card img {
+    max-height: 85%;
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+
+/* ... (Pastikan kode CSS lama Anda tetap ada di sini) ... */
+
+/* --- MODIFIKASI: Peningkatan Efek Warna pada Foto --- */
+
+    /* Tambahkan filter warna romantis */
+    filter: sepia(0.3) hue-rotate(-10deg) brightness(1.1); 
+}
+
+
+/* --- UNSUR CINTA (FLOATING HEARTS) --- */
+
+.heart {
+    position: absolute;
+    bottom: 0;
+    width: 5px; /* Ukuran dasar hati */
+    height: 5px;
+    background: #FF00E0; /* Warna pink/magenta */
+    transform: rotate(45deg);
+    pointer-events: none; 
+    opacity: 0;
+    animation: floatUp 6s infinite ease-in; /* Animasi Melayang */
+    z-index: 1; 
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #FF00E0;
+    border-radius: 50%;
+}
+
+.heart::before {
+    left: -50%;
+}
+
+.heart::after {
+    top: -50%;
+}
+
+/* Keyframes untuk membuat hati melayang dan memudar */
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(45deg) scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(45deg) scale(1.5); 
+        opacity: 0;
+    }
+}
